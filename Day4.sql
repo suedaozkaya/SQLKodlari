@@ -11,14 +11,13 @@ INSERT INTO tedarikciler VALUES (102, 'Huawei', 'Çin Li');
 INSERT INTO tedarikciler VALUES (103, 'Erikson', 'Maki Tammen');
 INSERT INTO tedarikciler VALUES (104, 'Apple', 'Adam Eve');
 
-CREATE TABLE urunler -- child
-(
+CREATE TABLE urunler -- child(
 ted_vergino int, 
 urun_id int, 
 urun_isim VARCHAR(50), 
 musteri_isim VARCHAR(50),
 CONSTRAINT fk_urunler FOREIGN KEY(ted_vergino) REFERENCES tedarikciler(vergi_no)
-on delete cascade
+ON DELETE CASCADE
 );  
 
 INSERT INTO urunler VALUES(101, 1001,'Laptop', 'Ayşe Can');

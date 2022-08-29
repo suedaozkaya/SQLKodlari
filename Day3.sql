@@ -28,6 +28,7 @@ INSERT INTO calisanlar VALUES('', 'osman', 2000, '2018-04-14');
 --INSERT INTO calisanlar VALUES('', 'osman can', 2000, '2018-04-14'); --PRIMARY KEY
 --INSERT INTO calisanlar VALUES( '10002', 'ayse Yılmaz' ,12000, '2018-04-14'); --PRIMARY KEY
 --INSERT INTO calisanlar VALUES( null, 'filiz ' ,12000, '2018-04-14'); --PRIMARY KEY
+
 -- FOREIGN KEY -- 
 CREATE TABLE adresler(
 adres_id char(5),
@@ -55,7 +56,7 @@ DROP TABLE calisanlar;
 --Parent tabloyu yani primary key olan tabloyu silmek istedigimizde tabloyu silmez
 --Once child tabloyu silmemiz gerekir
 
-DELETE FROM calisanlar WHERE id = '10002';--Parent
+DELETE FROM calisanlar WHERE id = '10002';--Parent (child'i silmeden silmeye izin vermiyor)
 
 DELETE FROM adresler WHERE adres_id = '10002'; --Child
 
@@ -66,8 +67,7 @@ DROP TABLE calisanlar;
 --ON DELETE CASCADE silme ozelligini aktif hale getirebiliriz
 --Bunun icin FK olan satirin en sonuna ON DELETE CASCADE komutunu yazmamiz yeterli
 
-CREATE TABLE talebeler
-(
+CREATE TABLE talebeler(
 id CHAR(3) primary key,
 isim VARCHAR(50),
 veli_isim VARCHAR(50),
@@ -108,29 +108,30 @@ DROP table talebeler CASCADE;
 --Parent tabloyu kaldirmak istersek Drop table tablo_adi'ndan sonra CASCADE komutunu kullaniriz
 
 
---Talebeler tablosundaki isim sutununa NOT NULL kisitlamasi ekleyiniz ve veri tipini VARCHAR(30) olarak degistiriniz 
-alter table talebeler 
-alter column isim TYPE VARCHAR(30),
-alter column isim SET NOT NULL;
+--Talebeler tablosundaki isim sutununa NOT NULL kisitlamasi ekleyiniz 
+--ve veri tipini VARCHAR(30) olarak degistiriniz 
+ALTER TABLE talebeler 
+ALTER COLUMN isim TYPE VARCHAR(30),
+ALTER COLUMN isim SET NOT NULL;
 
 --Talebeler tablosundaki yazili_notu sutununu 60'dan buyuk sayi girilebilsin
-alter table talebeler
+ALTER TABLE talebeler
 ADD CONSTRAINT sinir CHECK (yazili_notu>60);
 --CHECK kisitlamasi ile tablodaki istedigimiz sutunu sinirlandirabilirsiniz
 
 INSERT INTO talebeler VALUES(128,'Mustafa Can','Hasan',45);
 --Yukarida 60'i sinir olarak belirledigimiz icin bunu eklemedi
 
-create table ogrenciler(
+CREATE TABLE ogrenciler(
 id int,
 isim varchar(45),
 adres varchar(100),
 sinav_notu int
 );
 
-Create table ogrenci_adres
+CREATE TABLE ogrenci_adres
 AS
-SELECT id, adres from ogrenciler;
+SELECT id, adres FROM ogrenciler;
 
 SELECT * FROM ogrenciler;
 SELECT * FROM ogrenci_adres;
@@ -145,7 +146,7 @@ ADD CONSTRAINT pk_id PRIMARY KEY(id);
 
 --PK'den sonra FK atamasi--
 ALTER TABLE ogrenci_adres 
-ADD foreign key (id) REFERENCES ogrenciler;
+ADD FOREIGN KEY (id) REFERENCES ogrenciler;
 --Child tabloyu parent tablodan olusturdugumuz icin sutun adi verilmedi
 
 
@@ -164,19 +165,19 @@ SELECT * FROM talebeler WHERE isim = 'Mustafa Bak';
 --Between belirtiginiz 2 veri arasindaki bilgileri listeler
 --Between de belirttigimiz degerler de listelemeye dahildir
 
-create table personel
+CREATE TABLE personel
 (
 id char(4),
 isim varchar(50),
 maas int
 );
 
-insert into personel values('1001', 'Ali Can', 70000);
-insert into personel values('1002', 'Veli Mert', 85000);
-insert into personel values('1003', 'Ayşe Tan', 65000);
-insert into personel values('1004', 'Derya Soylu', 95000);
-insert into personel values('1005', 'Yavuz Bal', 80000);
-insert into personel values('1006', 'Sena Beyaz', 100000);
+INSERT INTO personel VALUES('1001', 'Ali Can', 70000);
+INSERT INTO personel VALUES('1002', 'Veli Mert', 85000);
+INSERT INTO personel VALUES('1003', 'Ayşe Tan', 65000);
+INSERT INTO personel VALUES('1004', 'Derya Soylu', 95000);
+INSERT INTO personel VALUES('1005', 'Yavuz Bal', 80000);
+INSERT INTO personel VALUES('1006', 'Sena Beyaz', 100000);
 
 /*
   AND (ve): Belirtilen sartlarin her ikisi de gerceklesiyorsa o kayit listelenir
@@ -206,7 +207,7 @@ SELECT * FROM personel WHERE maas=70000 OR isim='Sena Beyaz';
 --Farkli sutunlar icin IN kullanilamaz
 
 --id'si 1001,1002 ve 1004 olan personelin bilgilerini listele 
-SELECT * FROM personel WHERE id = '1001' or id = '1002' or id = '1004';
+SELECT * FROM personel WHERE id = '1001' OR id = '1002' OR id = '1004';
 
 --2.yol
 SELECT * FROM personel WHERE id IN ('1001','1002','1004');
