@@ -12,3 +12,6 @@ GROUP BY ulke
 HAVING AVG(maas)>30000;
 
 --Erkek çalışanların sayısı 1’den fazla olan ülkelerin maaş ortalamasını getiren sorgu
+SELECT ulke, ROUND(AVG(maas)) AS maas_ortalamasi FROM personel
+GROUP BY ulke
+HAVING COUNT(cinsiyet= 'E')>1;

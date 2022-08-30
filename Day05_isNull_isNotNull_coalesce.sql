@@ -8,9 +8,9 @@ NULL olmayan ilk ifadeyi döndürür
 */
 
 CREATE TABLE insanlar (	
-	ssn CHAR(9), -- Social Security Number	
-	isim VARCHAR(50), 	
-	adres VARCHAR(50) 
+ssn CHAR(9), -- Social Security Number	
+isim VARCHAR(50), 	
+adres VARCHAR(50) 
 );
 
 INSERT INTO insanlar VALUES('123456789', 'Ali Can', 'Istanbul');

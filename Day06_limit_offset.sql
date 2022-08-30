@@ -1,7 +1,6 @@
 -- LIMIT -- 
 
 
-
 -- Kisiler tablosundan ilk 5 veriyi listeleyiniz
 SELECT * FROM kisiler LIMIT 5;
 
