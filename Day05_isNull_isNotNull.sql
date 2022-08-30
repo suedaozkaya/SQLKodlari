@@ -4,7 +4,7 @@ IS NULL ve IS NOT NULL boolean operatörlerdir.
 Bir ifadenin NULL olup olmadığını kontrol eder
 
 COALESCE (Birleştirme) ise bir fonksiyondur ve içerisindeki parametrelerden
-NULL olmayan ilk ifadeyş döndürür
+NULL olmayan ilk ifadeyi döndürür
 */
 
 CREATE TABLE insanlar (	

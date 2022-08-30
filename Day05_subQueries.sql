@@ -1,7 +1,6 @@
 -- SUBQUERIES --> Sorgu içinde çalışan sorguya (alt sorgu) denir
 
-CREATE TABLE calisanlar2
-(
+CREATE TABLE calisanlar2(
 id int,
 isim VARCHAR(50),
 sehir VARCHAR(50),
@@ -17,8 +16,7 @@ INSERT INTO calisanlar2 VALUES(567890123, 'Veli Yilmaz', 'Ankara', 7000, 'Adidas
 INSERT INTO calisanlar2 VALUES(456789012, 'Ayse Gul', 'Ankara', 1500, 'Pierre Cardin');
 INSERT INTO calisanlar2 VALUES(123456710, 'Fatma Yasa', 'Bursa', 2500, 'Vakko');
 
-CREATE TABLE markalar
-(
+CREATE TABLE markalar(
 marka_id int,
 marka_isim VARCHAR(20),
 calisan_sayisi int
@@ -43,3 +41,4 @@ WHERE isyeri IN (SELECT marka_isim FROM markalar WHERE marka_id>101);
 -- Ankara’da calisani olan markalarin marka id'lerini ve calisan sayilarini listeleyiniz.
 SELECT marka_id, calisan_sayisi FROM markalar
 WHERE marka_isim IN (SELECT isyeri FROM calisanlar2 WHERE sehir = 'Ankara');
+

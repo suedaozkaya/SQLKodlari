@@ -147,7 +147,7 @@ ADD CONSTRAINT pk_id PRIMARY KEY(id);
 --PK'den sonra FK atamasi--
 ALTER TABLE ogrenci_adres 
 ADD FOREIGN KEY (id) REFERENCES ogrenciler;
---Child tabloyu parent tablodan olusturdugumuz icin sutun adi verilmedi
+--Child tabloyu parent tablodan olusturdugumuz icin sutun adi verilmedi(gerek yok)
 
 
 --PK'yi silme CONSTRAINT silme 
@@ -165,8 +165,7 @@ SELECT * FROM talebeler WHERE isim = 'Mustafa Bak';
 --Between belirtiginiz 2 veri arasindaki bilgileri listeler
 --Between de belirttigimiz degerler de listelemeye dahildir
 
-CREATE TABLE personel
-(
+CREATE TABLE personel(
 id char(4),
 isim varchar(50),
 maas int
@@ -187,8 +186,9 @@ INSERT INTO personel VALUES('1006', 'Sena Beyaz', 100000);
   
   OR(veya): Belirtilen sartlardan biri gerceklesirse, kayit listelenir
   SELECT * FROM matematik WHERE sinav1>50 OR sinav2>50
-  Hem sinav1 veya sinav2 alani, 50'den buyuk olan kayitlari listeler
+  sinav1 veya sinav2 alani, 50'den buyuk olan kayitlari listeler
 */
+
 SELECT * FROM personel;
 
 --id'si 1003 ile 1005 arasinda olan personel bilgisini listeleyiniz

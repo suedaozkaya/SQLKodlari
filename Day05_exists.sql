@@ -4,18 +4,16 @@
 -- bir değerin olması veya olmaması durunda işlem yapılmasını sağlar
 -- Exists true, false gibidir. Boolean
 
-CREATE TABLE mart
-(
-	urun_id int,
-	musteri_isim varchar(50),
-	urun_isim varchar(50)
+CREATE TABLE mart(
+urun_id int,
+musteri_isim varchar(50),
+urun_isim varchar(50)
 );
 
-CREATE TABLE nisan
-(
-	urun_id int ,
-	musteri_isim varchar(50),
-	urun_isim varchar(50)
+CREATE TABLE nisan(
+urun_id int ,
+musteri_isim varchar(50),
+urun_isim varchar(50)
 );
 
 INSERT INTO mart VALUES (10, 'Mark', 'Honda');
@@ -39,16 +37,22 @@ SELECT * FROM nisan;
 --URUN_ID’lerini listeleyen ve aynı zamanda bu ürünleri MART ayında alan
 --MUSTERI_ISIM 'lerini listeleyen bir sorgu yazınız.
 
+--EXISTS ile
 SELECT urun_id, musteri_isim FROM mart
-WHERE exists (SELECT urun_id FROM nisan WHERE mart.urun_id = nisan.urun_id);
+WHERE EXISTS (SELECT urun_id FROM nisan WHERE mart.urun_id = nisan.urun_id);
+
+--IN ile
+SELECT urun_id, musteri_isim FROM mart
+WHERE urun_id IN (SELECT urun_id FROM nisan WHERE mart.urun_id = nisan.urun_id);
+
 
 --Her iki ayda birden satılan ürünlerin URUN_ISIM'lerini ve bu ürünleri
 --NİSAN ayında satın alan MUSTERI_ISIM'lerini listeleyen bir sorgu yazınız.
 
 SELECT urun_isim, musteri_isim FROM nisan
-WHERE exists (SELECT urun_isim FROM mart WHERE mart.urun_isim = nisan.urun_isim);
+WHERE EXISTS (SELECT urun_isim FROM mart WHERE mart.urun_isim = nisan.urun_isim);
 
 --Her iki ayda ortak satilmayan ürünlerin URUN_ISIM'lerini ve  bu ürünleri
 --NİSAN ayında satın alan MUSTERI_ISIM'lerini listeleyen bir sorgu yazınız.
 SELECT urun_isim, musteri_isim FROM nisan
-WHERE not exists (SELECT urun_isim FROM mart WHERE mart.urun_isim = nisan.urun_isim);
+WHERE NOT EXISTS (SELECT urun_isim FROM mart WHERE mart.urun_isim = nisan.urun_isim);

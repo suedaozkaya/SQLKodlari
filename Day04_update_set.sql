@@ -1,6 +1,5 @@
 -- DML --> UPDATE --> Tablodaki verileri günceller
-CREATE TABLE tedarikciler -- parent
-(
+CREATE TABLE tedarikciler -- parent(
 vergi_no int PRIMARY KEY,
 firma_ismi VARCHAR(50),
 irtibat_ismi VARCHAR(50)
@@ -52,7 +51,7 @@ SET urun_id = urun_id+1 WHERE urun_id > 1004
 UPDATE urunler
 SET urun_id=ted_vergino+urun_id ;
 
--- urunler tablosundan Ali Bak’in aldigi urunun ismini, tedarikci  tablosunda irtibat_ismi 
+-- urunler tablosundan Ali Bak’in aldigi urunun ismini, tedarikci tablosunda irtibat_ismi 
 -- 'Adam Eve' olan firmanın ismi (firma_ismi) ile degistiriniz.
 -- Bu soruda tedarikçiler ve urunler tablosunu yeniden oluşturduk
 UPDATE urunler

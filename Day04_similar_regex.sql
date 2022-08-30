@@ -4,11 +4,10 @@ SIMILAR TO : Daha karmaşık pattern(kalıp) ile sorgulama işlemi için SIMILAR
 Sadece PostgreSQL de kullanılır. Büyük küçük harf önemlidir.
 
 REGEX : Herhangi bir kod, metin içerisinde istenen yazı veya kod parçasının aranıp bulunmasını sağlayan
-kendine ait bir söz dizimi olan bir yapıdır.MySQL de(REGEXP_LİKE) olarak kullanılır
+kendine ait bir söz dizimi olan bir yapıdır.MySQL de(REGEXP_LIKE) olarak kullanılır
 PostgreSQL'de "~" karakteri ile kullanılır.
 */
-CREATE TABLE kelimeler
-(
+CREATE TABLE kelimeler(
 id int,
 kelime VARCHAR(50),
 harf_sayisi int
@@ -31,6 +30,7 @@ INSERT INTO kelimeler VALUES (1014, 'haaat', 5);
 INSERT INTO kelimeler VALUES (1015, 'hooooot', 5);
 INSERT INTO kelimeler VALUES (1016, 'booooot', 5);
 INSERT INTO kelimeler VALUES (1017, 'bolooot', 5);
+
    
 SELECT * FROM kelimeler;  
 
@@ -45,7 +45,8 @@ SELECT * FROM kelimeler WHERE kelime ~~* '%at' OR kelime ~~* '%ot';
 
 --REGEX ile
 SELECT * FROM kelimeler WHERE kelime ~* 'ot' OR kelime ~* 'at';
-
+-- ~ -> case sensitive
+-- ~* -> case insensitive
 
 -- : 'ho' veya 'hi' ile başlayan kelimeleri listeleyeniz
 --SIMILAR TO ile
@@ -59,6 +60,7 @@ SELECT * FROM kelimeler WHERE kelime ~* 'h[oi(.*)]';
 --Regex'te ".(nokta)" bir karakteri temsil eder.
 --Regex'te 2. karakter için köşeli parantez kullanılır.
 -- * hepsi anlamında kullanılır
+
 
 --Sonu 't' veya 'm' ile bitenleri listeleyeniz
 --SIMILAR TO ile
@@ -87,7 +89,7 @@ SELECT kelime FROM kelimeler WHERE kelime ~* 'h[a-e](.*)t';
 
 --İlk karakteri 's', 'a' veya 'y' olan "kelime" değerlerini çağırın.
 SELECT kelime FROM kelimeler WHERE kelime SIMILAR TO 's% |a%| y%';
-SELECT kelime FROM kelimeler WHERE kelime ~'^[say](.*)';
+SELECT kelime FROM kelimeler WHERE kelime ~ '^[say](.*)';
 -- ^ : başlangıcı temsil eder.
 
 --Son karakteri 'm', 'a' veya 'f' olan "kelime" değerlerini çağırın.
@@ -95,22 +97,20 @@ SELECT kelime FROM kelimeler WHERE kelime ~ '(.*)[maf]$';
 
 --İlk harfi h, son harfi t olup 2.harfi a veya i olan 3 harfli kelimelerin tüm bilgilerini sorgulayalım.
 --REGEX ile
-SELECT * FROM kelimeler WHERE kelime ~ '^[h][a,i]t';
-SELECT * FROM kelimeler WHERE kelime ~ 'h[a|i]t';
+SELECT * FROM kelimeler WHERE kelime ~ '^[h][a,i]t$';
 --SIMILAR TO ile
 SELECT * FROM kelimeler WHERE kelime SIMILAR TO 'h[a|i]t';
 
---İlk harfi 'b' dan ‘s' ye bir karakter olan ve 
+--İlk harfi 'b' den ‘s' ye bir karakter olan ve 
 --ikinci harfi herhangi bir karakter olup üçüncü harfi ‘l' olan “kelime" değerlerini çağırın.
 SELECT kelime FROM kelimeler WHERE kelime ~ '^[b-s].l(.*)';
-SELECT kelime FROM kelimeler WHERE kelime ~ '^[b-s](.*)l';
 
 --içerisinde en az 2 adet oo barıdıran kelimelerin tüm bilgilerini listeleyiniz.
 SELECT * FROM kelimeler WHERE kelime ~ '(.*)oo(.*)';
 SELECT kelime FROM kelimeler WHERE kelime SIMILAR TO '%[o][o]%';
 SELECT kelime FROM kelimeler WHERE kelime SIMILAR TO '%[o]{2}%';
 --Süslü parantez içinde belirttiğimiz rakam bir önceki
---köşeli parantez içinde kaçtane olduğunu belirtir
+--köşeli parantez içindeki ifadenin kaç tane olacağını belirtir
 
 --içerisinde en az 4 adet oooo barıdıran kelimelerin tüm bilgilerini listeleyiniz.
 SELECT kelime FROM kelimeler WHERE kelime SIMILAR TO '%[o]{4}%';
