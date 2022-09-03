@@ -1,6 +1,6 @@
 -- TABLOYA DATA EKLEME
 CREATE TABLE students(
-student_id CHAR(3) PRIMARY KEY,
+student_id int PRIMARY KEY,
 student_name VARCHAR(50) UNIQUE,
 student_age int NOT NULL,
 student_dob DATE,
@@ -25,4 +25,28 @@ SELECT * FROM students;
 -- 101 id öğrencinin ismini 'LEO OCEAN' olarak güncelleyinin
 UPDATE students
 SET student_name = 'LEO OCEAN'
-WHERE student_id = '101';
+WHERE student_id = 101;
+
+-- 101 id öğrencinin yasini 22 olarak güncelleyinin
+UPDATE students 
+SET student_age=19 
+WHERE student_id=101; --22 yapmıyor constraint var.
+
+-- 101 id öğrencinin ismini 'ALI CAN' olarak güncelleyiniz
+UPDATE students
+SET student_name = 'ALI CAN'
+WHERE student_id = 101;
+
+-- 109 idli öğrencinin doğumtarihini 2010-12-11 olarak update yapın.
+UPDATE students 
+SET student_dob = '2010-12-11'
+WHERE student_id = 109;
+
+--ilk iki veriden sonra 5 veriyi listeleyiniz
+SELECT * FROM students
+LIMIT 5 OFFSET 2;
+
+-- yasi en buyuk 4. 5. 6. kişilerin bilgilerini listeleyiniz
+SELECT * FROM students
+ORDER BY student_age DESC
+OFFSET 3 LIMIT 3;
